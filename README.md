@@ -20,7 +20,7 @@ Add the `data-simple-lightbox` attribute to any container element to duplicate t
 <div class="video-container" data-simple-lightbox>
   <video width="320" height="240" controls>
     <source src="path/to/video.mp4" type="video/mp4">
-    <source src="path.to/video.webm" type="video/webm">
+    <source src="path/to/video.webm" type="video/webm">
     Your browser does not support the video tag.
   </video>
 </div>
