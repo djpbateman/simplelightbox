@@ -8,34 +8,38 @@ class SimpleLightbox {
     const dataContainer = element;
 
     if (!dataContainer) {
-      console.error('No container found.');
-      return;
+      throw new Error('No container found.');
     }
 
     let lightbox = document.querySelector('.simple-lightbox');
 
     if (!lightbox) {
-      lightbox = document.createElement('div');
-      lightbox.classList.add('simple-lightbox');
-      document.body.appendChild(lightbox);
-
-      lightbox.addEventListener('click', (event) => {
-        if (event.target === lightbox) {
-          document.body.removeChild(lightbox);
-        }
-      });
+      lightbox = this.createLightbox();
     }
 
     lightbox.innerHTML = dataContainer.innerHTML;
   }
+
+  static createLightbox() {
+    const lightbox = document.createElement('div');
+    lightbox.classList.add('simple-lightbox');
+    document.body.appendChild(lightbox);
+
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) {
+        document.body.removeChild(lightbox);
+      }
+    });
+
+    return lightbox;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const simplelightboxElements = document.querySelectorAll('[data-simple-lightbox]');
-
-  for (const element of simplelightboxElements) {
-    element.addEventListener('click', () => {
+  document.body.addEventListener('click', (event) => {
+    const element = event.target.closest('[data-simple-lightbox]');
+    if (element) {
       SimpleLightbox.openLightbox(element);
-    });
-  }
+    }
+  });
 });
